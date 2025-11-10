@@ -33,18 +33,21 @@
 ### 1. Frontend Layer (Next.js + React)
 
 **Responsibilities**:
+
 - Render UI components
 - Handle user interactions
 - Display real-time updates
 - Manage client-side state
 
 **Key Technologies**:
+
 - Next.js 16 (App Router)
 - React 19 (Server Components)
 - TypeScript (strict mode)
 - Tailwind CSS v4
 
 **Component Structure**:
+
 ```
 components/
 ├── ui/              # Atomic components (buttons, inputs, cards)
@@ -58,12 +61,14 @@ components/
 ### 2. API Layer (Next.js API Routes)
 
 **Responsibilities**:
+
 - Handle HTTP requests
 - Validate inputs
 - Orchestrate business logic
 - Return JSON responses
 
 **Endpoints**:
+
 ```
 POST   /api/analysis              # Start new analysis
 GET    /api/evaluations           # List all evaluations
@@ -74,6 +79,7 @@ GET    /api/market-data/[ticker]  # Get market data (planned)
 ```
 
 **Request Flow**:
+
 ```
 Request → Validation → Business Logic → Database → Response
 ```
@@ -85,6 +91,7 @@ Request → Validation → Business Logic → Database → Response
 **Purpose**: Execute multi-step analysis workflows
 
 **Architecture**:
+
 ```typescript
 WorkflowOrchestrator
 ├── WorkflowStep[] (registered steps)
@@ -100,6 +107,7 @@ WorkflowOrchestrator
 ```
 
 **Step Interface**:
+
 ```typescript
 interface WorkflowStep {
   name: string;
@@ -112,6 +120,7 @@ interface WorkflowStep {
 ```
 
 **Extensibility**:
+
 - New steps implement `WorkflowStep` interface
 - Register in `getDefaultWorkflowSteps()`
 - No changes to orchestrator needed
@@ -123,6 +132,7 @@ interface WorkflowStep {
 **Purpose**: Interact with Claude API for analysis
 
 **Architecture**:
+
 ```typescript
 ClaudeAnalyzer
 ├── analyze(request: AnalysisRequest)
@@ -134,12 +144,14 @@ ClaudeAnalyzer
 ```
 
 **Prompt Strategy**:
+
 - Structured prompts per analysis type
 - Request JSON-formatted responses
 - Include context from previous steps
 - Fallback to text parsing if JSON fails
 
 **Cost Optimization**:
+
 - Cache responses (planned)
 - Optimize prompt length
 - Use appropriate model (Haiku for simple tasks)
@@ -152,6 +164,7 @@ ClaudeAnalyzer
 **Purpose**: Persist all analysis data
 
 **Schema**:
+
 ```sql
 companies
 ├── id (PK)
@@ -188,6 +201,7 @@ analysis_steps
 ```
 
 **Indexes**:
+
 ```sql
 idx_evaluations_company (company_id)
 idx_evaluations_status (status)
@@ -196,6 +210,7 @@ idx_companies_ticker (ticker) -- planned
 ```
 
 **Operations**:
+
 - CRUD operations in `lib/db/index.ts`
 - Type-safe interfaces in `lib/db/schema.ts`
 - Migrations in `scripts/migrate.js` (planned)
@@ -207,6 +222,7 @@ idx_companies_ticker (ticker) -- planned
 **Purpose**: Fetch real financial data from multiple sources
 
 **Architecture**:
+
 ```typescript
 interface DataProvider {
   getQuote(ticker: string): Promise<Quote>;
@@ -226,6 +242,7 @@ DataService
 ```
 
 **Data Normalization**:
+
 - Different APIs return different formats
 - Normalize to common interface
 - Validate data quality
@@ -238,6 +255,7 @@ DataService
 **Purpose**: Calculate financial metrics and valuations
 
 **Modules**:
+
 ```typescript
 lib/analysis/
 ├── ratios.ts           # Financial ratios
@@ -328,11 +346,13 @@ Frontend                    Backend
 ## State Management
 
 ### Client State
+
 - Component state: `useState`
 - Shared state: React Context
 - Server state: React Query (planned)
 
 ### Server State
+
 - Database: SQLite
 - Cache: In-memory → Redis (planned)
 - Sessions: JWT (planned)
@@ -342,6 +362,7 @@ Frontend                    Backend
 ## Security Architecture
 
 ### Input Validation
+
 ```typescript
 // Using Zod schemas
 const CompanySchema = z.object({
@@ -351,25 +372,29 @@ const CompanySchema = z.object({
 ```
 
 ### SQL Injection Prevention
+
 - Parameterized queries (all queries)
 - No string concatenation
 - Input sanitization
 
 ### XSS Prevention
+
 - React auto-escapes by default
 - Sanitize user HTML (DOMPurify planned)
 - Content Security Policy headers
 
 ### Rate Limiting (Planned)
+
 ```typescript
 // Per IP
 const rateLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100 // limit each IP to 100 requests per windowMs
+  max: 100, // limit each IP to 100 requests per windowMs
 });
 ```
 
 ### API Key Security
+
 - Environment variables only
 - Never commit to git
 - Rotate regularly
@@ -380,11 +405,13 @@ const rateLimiter = rateLimit({
 ## Performance Optimization
 
 ### Current
+
 - Database indexes on foreign keys
 - Minimal bundle size
 - SSR for initial load
 
 ### Planned
+
 - Redis caching (5-minute TTL)
 - CDN for static assets
 - Image optimization
@@ -398,6 +425,7 @@ const rateLimiter = rateLimit({
 ## Error Handling
 
 ### Strategy
+
 ```typescript
 try {
   // Operation
@@ -408,18 +436,19 @@ try {
   // 2. Store in database if needed
   updateAnalysisStep(id, {
     status: 'failed',
-    error_message: error.message
+    error_message: error.message,
   });
 
   // 3. Return user-friendly message
   return {
     success: false,
-    error: 'Failed to analyze company. Please try again.'
+    error: 'Failed to analyze company. Please try again.',
   };
 }
 ```
 
 ### Error Types
+
 - **Validation Errors**: 400 Bad Request
 - **Not Found**: 404 Not Found
 - **Server Errors**: 500 Internal Server Error
@@ -431,12 +460,14 @@ try {
 ## Scalability Considerations
 
 ### Current Limitations
+
 - SQLite: Single file, no horizontal scaling
 - In-process execution: Limited concurrency
 - No load balancing
 - No caching layer
 
 ### Migration Path
+
 1. **Phase 1** (Current - 100 users)
    - SQLite is sufficient
    - Single server deployment
@@ -457,6 +488,7 @@ try {
 ## Development Environment
 
 ### Local Setup
+
 ```bash
 # Dependencies
 Node.js 18+
@@ -480,6 +512,7 @@ npm test
 ```
 
 ### Database Development
+
 ```bash
 # Create migration
 node scripts/create-migration.js add_users_table
@@ -496,11 +529,13 @@ npm run db:seed
 ## Deployment Architecture (Planned)
 
 ### Development
+
 ```
 GitHub → GitHub Actions → Vercel Preview
 ```
 
 ### Production
+
 ```
 GitHub main branch
   ↓
@@ -520,6 +555,7 @@ GitHub Actions
 ## Monitoring & Observability (Planned)
 
 ### Metrics
+
 - Request rate, latency, error rate
 - Database query performance
 - Claude API usage and costs
@@ -527,12 +563,14 @@ GitHub Actions
 - Analysis completion rate
 
 ### Logging
+
 - Structured logging (JSON)
 - Log levels: debug, info, warn, error
 - Correlation IDs for request tracing
 - Log aggregation (ELK or Loki)
 
 ### Alerting
+
 - Error rate > 1%
 - API latency > 2s
 - Database connections > 80%
@@ -544,23 +582,27 @@ GitHub Actions
 ## Testing Strategy
 
 ### Unit Tests
+
 - Utility functions
 - Financial calculations
 - Data transformations
 - 80%+ coverage goal
 
 ### Integration Tests
+
 - API endpoints
 - Database operations
 - External API calls (mocked)
 
 ### E2E Tests
+
 - Critical user flows
 - Analysis creation
 - Results viewing
 - Error scenarios
 
 ### Testing Tools
+
 - Vitest for unit tests
 - Playwright for E2E tests
 - MSW for API mocking
@@ -570,6 +612,7 @@ GitHub Actions
 ## Key Design Decisions
 
 ### Why Next.js?
+
 - Full-stack framework (frontend + API)
 - Built-in SSR/SSG
 - Great developer experience
@@ -577,6 +620,7 @@ GitHub Actions
 - Large ecosystem
 
 ### Why SQLite?
+
 - Zero configuration
 - Perfect for MVP
 - Fast for reads
@@ -584,6 +628,7 @@ GitHub Actions
 - Migration path to PostgreSQL clear
 
 ### Why Claude AI?
+
 - Best-in-class analysis quality
 - JSON mode for structured outputs
 - Long context window
@@ -591,6 +636,7 @@ GitHub Actions
 - Great for financial analysis
 
 ### Why TypeScript?
+
 - Type safety prevents bugs
 - Better IDE experience
 - Self-documenting code
@@ -601,6 +647,7 @@ GitHub Actions
 ## Future Architecture Enhancements
 
 ### Near-term (Next 3 months)
+
 - [ ] Redis caching
 - [ ] Background job queue
 - [ ] Real financial data integration
@@ -608,6 +655,7 @@ GitHub Actions
 - [ ] PostgreSQL migration
 
 ### Medium-term (3-6 months)
+
 - [ ] Microservices for analysis
 - [ ] GraphQL API
 - [ ] Real-time collaboration
@@ -615,6 +663,7 @@ GitHub Actions
 - [ ] Kubernetes deployment
 
 ### Long-term (6-12 months)
+
 - [ ] Multi-region deployment
 - [ ] AI model fine-tuning
 - [ ] Streaming data processing
@@ -626,6 +675,7 @@ GitHub Actions
 ## Technical Debt
 
 ### Known Issues
+
 1. No error boundaries in UI
 2. Polling instead of SSE/WebSocket
 3. No caching layer
@@ -634,6 +684,7 @@ GitHub Actions
 6. SQLite will limit scale
 
 ### Mitigation Plan
+
 - Prioritized in TASKS.md
 - Address highest-risk items first
 - Allocate 20% sprint time to debt
@@ -644,6 +695,7 @@ GitHub Actions
 ## Dependencies
 
 ### Critical Dependencies
+
 - `next`: Web framework
 - `react`: UI library
 - `@anthropic-ai/sdk`: Claude AI
@@ -652,12 +704,14 @@ GitHub Actions
 - `tailwindcss`: Styling
 
 ### Development Dependencies
+
 - `@types/*`: TypeScript types
 - `eslint`: Linting
 - `prettier`: Code formatting
 - Testing tools (planned)
 
 ### Security
+
 - Regular `npm audit`
 - Dependabot alerts enabled
 - Review major version updates
@@ -666,6 +720,7 @@ GitHub Actions
 ---
 
 This architecture is designed to:
+
 1. **Start simple** (SQLite, single server)
 2. **Scale gradually** (add caching, jobs, PostgreSQL)
 3. **Remain flexible** (extensible workflows, pluggable providers)

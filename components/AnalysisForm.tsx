@@ -60,9 +60,7 @@ export function AnalysisForm({ onAnalysisStart }: AnalysisFormProps) {
     <Card>
       <CardHeader>
         <CardTitle>Investment Analysis</CardTitle>
-        <CardDescription>
-          Enter a company name to analyze investment potential
-        </CardDescription>
+        <CardDescription>Enter a company name to analyze investment potential</CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -92,9 +90,7 @@ export function AnalysisForm({ onAnalysisStart }: AnalysisFormProps) {
             />
           </div>
 
-          {error && (
-            <div className="text-sm text-destructive">{error}</div>
-          )}
+          {error && <div className="text-sm text-destructive">{error}</div>}
 
           <Button type="submit" disabled={isLoading} className="w-full">
             <Search className="mr-2 h-4 w-4" />

@@ -42,10 +42,7 @@ export default function Home() {
           {/* Left Panel - Input & History */}
           <div className="lg:col-span-1 space-y-6">
             <AnalysisForm onAnalysisStart={handleAnalysisStart} />
-            <EvaluationsList
-              onSelect={handleEvaluationSelect}
-              refresh={refreshKey}
-            />
+            <EvaluationsList onSelect={handleEvaluationSelect} refresh={refreshKey} />
           </div>
 
           {/* Right Panel - Results */}
@@ -71,9 +68,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="border-t mt-12">
         <div className="container mx-auto px-4 py-6 text-center text-sm text-muted-foreground">
-          <p>
-            Powered by Claude AI • Investment analysis for educational purposes only
-          </p>
+          <p>Powered by Claude AI • Investment analysis for educational purposes only</p>
         </div>
       </footer>
     </div>

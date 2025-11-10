@@ -101,11 +101,7 @@ export function AnalysisResults({ evaluationId, onUpdate }: AnalysisResultsProps
   }
 
   if (!evaluation) {
-    return (
-      <div className="text-center p-8 text-muted-foreground">
-        Evaluation not found
-      </div>
-    );
+    return <div className="text-center p-8 text-muted-foreground">Evaluation not found</div>;
   }
 
   const getRatingColor = (rating: string) => {
@@ -157,9 +153,7 @@ export function AnalysisResults({ evaluationId, onUpdate }: AnalysisResultsProps
               <CardTitle className="text-3xl">
                 {evaluation.company_name || 'Company'}
                 {evaluation.ticker && (
-                  <span className="text-muted-foreground ml-2">
-                    ({evaluation.ticker})
-                  </span>
+                  <span className="text-muted-foreground ml-2">({evaluation.ticker})</span>
                 )}
               </CardTitle>
               <CardDescription>Investment Analysis Report</CardDescription>
@@ -222,12 +216,21 @@ export function AnalysisResults({ evaluationId, onUpdate }: AnalysisResultsProps
                       <CardTitle className="text-lg">{step.source}</CardTitle>
                       {step.status === 'completed' && (
                         <div className="flex items-center gap-2 mt-1">
-                          <Badge variant={step.sentiment === 'positive' ? 'success' : step.sentiment === 'negative' ? 'destructive' : 'secondary'}>
+                          <Badge
+                            variant={
+                              step.sentiment === 'positive'
+                                ? 'success'
+                                : step.sentiment === 'negative'
+                                  ? 'destructive'
+                                  : 'secondary'
+                            }
+                          >
                             {getSentimentIcon(step.sentiment)}
                             <span className="ml-1">{step.sentiment}</span>
                           </Badge>
                           <span className="text-sm font-semibold">
-                            Score: {step.score > 0 ? '+' : ''}{step.score}
+                            Score: {step.score > 0 ? '+' : ''}
+                            {step.score}
                           </span>
                         </div>
                       )}

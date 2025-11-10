@@ -1,34 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server';
-import {
-  getEvaluation,
-  updateEvaluation,
-  getAnalysisSteps,
-} from '@/lib/db';
+import { getEvaluation, updateEvaluation, getAnalysisSteps } from '@/lib/db';
 import { WorkflowOrchestrator } from '@/lib/workflow/orchestrator';
 import { getDefaultWorkflowSteps } from '@/lib/workflow/steps';
 
-export async function POST(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
     const evaluationId = parseInt(id, 10);
 
     if (isNaN(evaluationId)) {
-      return NextResponse.json(
-        { error: 'Invalid evaluation ID' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Invalid evaluation ID' }, { status: 400 });
     }
 
     const evaluation = getEvaluation(evaluationId);
 
     if (!evaluation) {
-      return NextResponse.json(
-        { error: 'Evaluation not found' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'Evaluation not found' }, { status: 404 });
     }
 
     // Reset evaluation status
@@ -59,9 +46,6 @@ export async function POST(
     });
   } catch (error) {
     console.error('Error updating evaluation:', error);
-    return NextResponse.json(
-      { error: 'Failed to update evaluation' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to update evaluation' }, { status: 500 });
   }
 }

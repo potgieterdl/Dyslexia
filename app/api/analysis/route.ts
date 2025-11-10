@@ -1,8 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import {
-  getOrCreateCompany,
-  createEvaluation,
-} from '@/lib/db';
+import { getOrCreateCompany, createEvaluation } from '@/lib/db';
 import { WorkflowOrchestrator } from '@/lib/workflow/orchestrator';
 import { getDefaultWorkflowSteps } from '@/lib/workflow/steps';
 
@@ -12,10 +9,7 @@ export async function POST(request: NextRequest) {
     const { companyName, ticker } = body;
 
     if (!companyName) {
-      return NextResponse.json(
-        { error: 'Company name is required' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Company name is required' }, { status: 400 });
     }
 
     // Get or create company
@@ -48,9 +42,6 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error('Error starting analysis:', error);
-    return NextResponse.json(
-      { error: 'Failed to start analysis' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to start analysis' }, { status: 500 });
   }
 }

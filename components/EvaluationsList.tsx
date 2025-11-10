@@ -112,9 +112,7 @@ export function EvaluationsList({ onSelect, refresh }: EvaluationsListProps) {
                     <span className="font-semibold">
                       {evaluation.company_name}
                       {evaluation.ticker && (
-                        <span className="text-muted-foreground ml-1">
-                          ({evaluation.ticker})
-                        </span>
+                        <span className="text-muted-foreground ml-1">({evaluation.ticker})</span>
                       )}
                     </span>
                   </div>
