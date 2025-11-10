@@ -1,27 +1,36 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { getEvaluation, updateEvaluation, getAnalysisSteps } from '@/lib/db';
+import { getEvaluation, updateEvaluation } from '@/lib/db';
 import { WorkflowOrchestrator } from '@/lib/workflow/orchestrator';
 import { getDefaultWorkflowSteps } from '@/lib/workflow/steps';
+import { createErrorResponse, notFoundError, badRequestError } from '@/lib/api-error';
+import { logInfo, logError } from '@/lib/logger';
 
 export async function POST(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
     const evaluationId = parseInt(id, 10);
 
-    if (isNaN(evaluationId)) {
-      return NextResponse.json({ error: 'Invalid evaluation ID' }, { status: 400 });
+    if (isNaN(evaluationId) || evaluationId <= 0) {
+      throw badRequestError('Invalid evaluation ID', { id });
     }
+
+    logInfo('Updating evaluation', { evaluationId });
 
     const evaluation = getEvaluation(evaluationId);
 
     if (!evaluation) {
-      return NextResponse.json({ error: 'Evaluation not found' }, { status: 404 });
+      throw notFoundError('Evaluation not found', { evaluationId });
     }
 
     // Reset evaluation status
     updateEvaluation(evaluationId, {
       status: 'pending',
       updated_at: new Date().toISOString(),
+    });
+
+    logInfo('Restarting workflow for evaluation', {
+      evaluationId,
+      companyName: evaluation.company_name,
     });
 
     // Re-run workflow
@@ -34,10 +43,16 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
         evaluationId: evaluation.id,
       })
       .then((result) => {
-        console.log('Updated workflow completed:', result);
+        logInfo('Updated workflow completed successfully', {
+          evaluationId,
+          result,
+        });
       })
       .catch((error) => {
-        console.error('Updated workflow failed:', error);
+        logError('Updated workflow failed', error, {
+          evaluationId,
+          companyName: evaluation.company_name,
+        });
       });
 
     return NextResponse.json({
@@ -45,7 +60,6 @@ export async function POST(request: NextRequest, { params }: { params: Promise<{
       status: 'updating',
     });
   } catch (error) {
-    console.error('Error updating evaluation:', error);
-    return NextResponse.json({ error: 'Failed to update evaluation' }, { status: 500 });
+    return createErrorResponse(error, `POST /api/evaluations/${(await params).id}/update`);
   }
 }

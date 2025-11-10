@@ -1,12 +1,14 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { getAllEvaluations } from '@/lib/db';
+import { createErrorResponse } from '@/lib/api-error';
+import { logInfo } from '@/lib/logger';
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
+    logInfo('Fetching all evaluations');
     const evaluations = getAllEvaluations();
     return NextResponse.json(evaluations);
   } catch (error) {
-    console.error('Error fetching evaluations:', error);
-    return NextResponse.json({ error: 'Failed to fetch evaluations' }, { status: 500 });
+    return createErrorResponse(error, 'GET /api/evaluations');
   }
 }

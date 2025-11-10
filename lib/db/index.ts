@@ -1,7 +1,9 @@
 import Database from 'better-sqlite3';
 import path from 'path';
 import fs from 'fs';
-import { Company, Evaluation, AnalysisStep, WorkflowStepDefinition } from './schema';
+import { Company, Evaluation, AnalysisStep } from './schema';
+import { logInfo, logError, logDebug } from '../logger';
+import { databaseError } from '../api-error';
 
 const DB_PATH =
   process.env.DATABASE_PATH || path.join(process.cwd(), 'data', 'investment-analyzer.db');
@@ -9,16 +11,28 @@ const DB_PATH =
 // Ensure data directory exists
 const dataDir = path.dirname(DB_PATH);
 if (!fs.existsSync(dataDir)) {
-  fs.mkdirSync(dataDir, { recursive: true });
+  try {
+    fs.mkdirSync(dataDir, { recursive: true });
+    logInfo('Created database directory', { path: dataDir });
+  } catch (error) {
+    logError('Failed to create database directory', error, { path: dataDir });
+    throw error;
+  }
 }
 
 let db: Database.Database | null = null;
 
 export function getDatabase(): Database.Database {
   if (!db) {
-    db = new Database(DB_PATH);
-    db.pragma('journal_mode = WAL');
-    initializeDatabase(db);
+    try {
+      db = new Database(DB_PATH);
+      db.pragma('journal_mode = WAL');
+      initializeDatabase(db);
+      logDebug('Database connection established', { path: DB_PATH });
+    } catch (error) {
+      logError('Failed to initialize database', error, { path: DB_PATH });
+      throw databaseError('Failed to initialize database');
+    }
   }
   return db;
 }
@@ -81,29 +95,44 @@ function initializeDatabase(database: Database.Database) {
 
 // Company operations
 export function createCompany(name: string, ticker?: string, sector?: string): Company {
-  const db = getDatabase();
-  const stmt = db.prepare('INSERT INTO companies (name, ticker, sector) VALUES (?, ?, ?)');
-  const result = stmt.run(name, ticker, sector);
+  try {
+    const db = getDatabase();
+    const stmt = db.prepare('INSERT INTO companies (name, ticker, sector) VALUES (?, ?, ?)');
+    const result = stmt.run(name, ticker, sector);
 
-  const company = db
-    .prepare('SELECT * FROM companies WHERE id = ?')
-    .get(result.lastInsertRowid) as Company;
-  return company;
+    const company = db
+      .prepare('SELECT * FROM companies WHERE id = ?')
+      .get(result.lastInsertRowid) as Company;
+
+    logDebug('Created company', { id: company.id, name, ticker });
+    return company;
+  } catch (error) {
+    logError('Failed to create company', error, { name, ticker, sector });
+    throw databaseError('Failed to create company');
+  }
 }
 
 export function getOrCreateCompany(name: string, ticker?: string): Company {
-  const db = getDatabase();
+  try {
+    const db = getDatabase();
 
-  // Try to find existing company
-  let company = db.prepare('SELECT * FROM companies WHERE name = ?').get(name) as
-    | Company
-    | undefined;
+    // Try to find existing company
+    let company = db.prepare('SELECT * FROM companies WHERE name = ?').get(name) as
+      | Company
+      | undefined;
 
-  if (!company) {
-    company = createCompany(name, ticker);
+    if (!company) {
+      company = createCompany(name, ticker);
+      logDebug('Company not found, created new', { name, ticker });
+    } else {
+      logDebug('Found existing company', { id: company.id, name });
+    }
+
+    return company;
+  } catch (error) {
+    logError('Failed to get or create company', error, { name, ticker });
+    throw databaseError('Failed to get or create company');
   }
-
-  return company;
 }
 
 export function getCompanies(): Company[] {
@@ -113,68 +142,107 @@ export function getCompanies(): Company[] {
 
 // Evaluation operations
 export function createEvaluation(companyId: number): Evaluation {
-  const db = getDatabase();
-  const stmt = db.prepare('INSERT INTO evaluations (company_id, status) VALUES (?, ?)');
-  const result = stmt.run(companyId, 'pending');
+  try {
+    const db = getDatabase();
+    const stmt = db.prepare('INSERT INTO evaluations (company_id, status) VALUES (?, ?)');
+    const result = stmt.run(companyId, 'pending');
 
-  return db
-    .prepare('SELECT * FROM evaluations WHERE id = ?')
-    .get(result.lastInsertRowid) as Evaluation;
+    const evaluation = db
+      .prepare('SELECT * FROM evaluations WHERE id = ?')
+      .get(result.lastInsertRowid) as Evaluation;
+
+    logDebug('Created evaluation', { id: evaluation.id, companyId });
+    return evaluation;
+  } catch (error) {
+    logError('Failed to create evaluation', error, { companyId });
+    throw databaseError('Failed to create evaluation');
+  }
 }
 
 export function updateEvaluation(
   evaluationId: number,
   updates: Partial<Omit<Evaluation, 'id' | 'company_id' | 'created_at'>>
 ): void {
-  const db = getDatabase();
-  const fields: string[] = [];
-  const values: any[] = [];
+  try {
+    const db = getDatabase();
+    const fields: string[] = [];
+    const values: unknown[] = [];
 
-  Object.entries(updates).forEach(([key, value]) => {
-    fields.push(`${key} = ?`);
-    values.push(value);
-  });
+    Object.entries(updates).forEach(([key, value]) => {
+      fields.push(`${key} = ?`);
+      values.push(value);
+    });
 
-  fields.push('updated_at = CURRENT_TIMESTAMP');
-  values.push(evaluationId);
+    fields.push('updated_at = CURRENT_TIMESTAMP');
+    values.push(evaluationId);
 
-  const stmt = db.prepare(`UPDATE evaluations SET ${fields.join(', ')} WHERE id = ?`);
-  stmt.run(...values);
+    const stmt = db.prepare(`UPDATE evaluations SET ${fields.join(', ')} WHERE id = ?`);
+    stmt.run(...values);
+
+    logDebug('Updated evaluation', { evaluationId, updates });
+  } catch (error) {
+    logError('Failed to update evaluation', error, { evaluationId, updates });
+    throw databaseError('Failed to update evaluation');
+  }
 }
 
 export function getEvaluation(evaluationId: number): Evaluation | undefined {
-  const db = getDatabase();
-  return db
-    .prepare(
-      `
-    SELECT e.*, c.name as company_name, c.ticker
-    FROM evaluations e
-    JOIN companies c ON e.company_id = c.id
-    WHERE e.id = ?
-  `
-    )
-    .get(evaluationId) as Evaluation | undefined;
+  try {
+    const db = getDatabase();
+    const evaluation = db
+      .prepare(
+        `
+      SELECT e.*, c.name as company_name, c.ticker
+      FROM evaluations e
+      JOIN companies c ON e.company_id = c.id
+      WHERE e.id = ?
+    `
+      )
+      .get(evaluationId) as Evaluation | undefined;
+
+    logDebug('Retrieved evaluation', { evaluationId, found: !!evaluation });
+    return evaluation;
+  } catch (error) {
+    logError('Failed to get evaluation', error, { evaluationId });
+    throw databaseError('Failed to get evaluation');
+  }
 }
 
 export function getEvaluationsByCompany(companyId: number): Evaluation[] {
-  const db = getDatabase();
-  return db
-    .prepare('SELECT * FROM evaluations WHERE company_id = ? ORDER BY created_at DESC')
-    .all(companyId) as Evaluation[];
+  try {
+    const db = getDatabase();
+    const evaluations = db
+      .prepare('SELECT * FROM evaluations WHERE company_id = ? ORDER BY created_at DESC')
+      .all(companyId) as Evaluation[];
+
+    logDebug('Retrieved evaluations for company', { companyId, count: evaluations.length });
+    return evaluations;
+  } catch (error) {
+    logError('Failed to get evaluations by company', error, { companyId });
+    throw databaseError('Failed to get evaluations by company');
+  }
 }
 
 export function getAllEvaluations(): Evaluation[] {
-  const db = getDatabase();
-  return db
-    .prepare(
-      `
-    SELECT e.*, c.name as company_name, c.ticker
-    FROM evaluations e
-    JOIN companies c ON e.company_id = c.id
-    ORDER BY e.created_at DESC
-  `
-    )
-    .all() as Evaluation[];
+  try {
+    const db = getDatabase();
+    const evaluations = db
+      .prepare(
+        `
+      SELECT e.*, c.name as company_name, c.ticker
+      FROM evaluations e
+      JOIN companies c ON e.company_id = c.id
+      ORDER BY e.created_at DESC
+    `
+      )
+      .all() as Evaluation[];
+
+    logDebug('Retrieved all evaluations', { count: evaluations.length });
+    return evaluations;
+  } catch (error) {
+    logError('Failed to get all evaluations', error);
+    throw databaseError('Failed to get all evaluations');
+  }
 }
 
 // Analysis step operations
@@ -202,7 +270,7 @@ export function updateAnalysisStep(
 ): void {
   const db = getDatabase();
   const fields: string[] = [];
-  const values: any[] = [];
+  const values: unknown[] = [];
 
   Object.entries(updates).forEach(([key, value]) => {
     fields.push(`${key} = ?`);
