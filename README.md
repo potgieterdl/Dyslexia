@@ -40,7 +40,8 @@ Each step generates:
 
 ### Prerequisites
 
-- Node.js 18+ installed
+- Node.js 20.9.0 or higher (required by Next.js 16)
+- npm 9 or higher
 - Anthropic API key ([Get one here](https://console.anthropic.com/))
 
 ### Installation
