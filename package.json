@@ -63,7 +63,7 @@
     "*.{js,jsx,ts,tsx}": [
       "prettier --write"
     ],
-    "*.{json,css,md}": [
+    "*.{json,css}": [
       "prettier --write"
     ]
   }

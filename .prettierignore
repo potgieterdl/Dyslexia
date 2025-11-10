@@ -38,5 +38,5 @@ yarn.lock
 pnpm-lock.yaml
 
 # Documentation (preserve formatting)
-# Uncomment if you want to skip formatting docs
-# *.md
+# Skip markdown files to preserve manual formatting
+*.md
