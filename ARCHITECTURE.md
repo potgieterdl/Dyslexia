@@ -491,7 +491,7 @@ try {
 
 ```bash
 # Dependencies
-Node.js 18+
+Node.js 20.9.0+ (required by Next.js 16)
 npm 9+
 
 # Installation
