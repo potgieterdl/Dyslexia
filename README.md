@@ -23,6 +23,7 @@ The tool performs the following analyses:
 6. **Competitive Positioning** - Market share and competitive advantages
 
 Each step generates:
+
 - A score (-100 to 100)
 - Sentiment (positive/negative/neutral)
 - Summary and key points
@@ -47,33 +48,54 @@ Each step generates:
 ### Installation
 
 1. Clone the repository:
+
 ```bash
 git clone <repository-url>
 cd Dyslexia
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
 
 3. Set up environment variables:
+
 ```bash
 cp .env.example .env
 ```
 
 Edit `.env` and add your Anthropic API key:
+
 ```
 ANTHROPIC_API_KEY=your_api_key_here
 DATABASE_PATH=./data/investment-analyzer.db
 ```
 
-4. Run the development server:
+4. Initialize the database:
+
+```bash
+npm run db:init
+```
+
+5. Run the development server:
+
 ```bash
 npm run dev
 ```
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser
+6. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+### Git Hooks (Automatic)
+
+The project uses [Husky](https://typicode.github.io/husky/) to automatically:
+
+- **Format code** with Prettier before every commit
+- **Fix lint issues** with ESLint before every commit
+- **Check types** with TypeScript before every push
+
+This ensures code quality without manual intervention. Hooks are set up automatically when you run `npm install`.
 
 ## Usage
 
@@ -226,6 +248,7 @@ npm run lint
 ## Future Enhancements
 
 Potential additions:
+
 - Real-time financial data API integration
 - Advanced valuation models (DCF, DDM)
 - Portfolio tracking
