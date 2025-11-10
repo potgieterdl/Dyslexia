@@ -1,14 +1,10 @@
 import Database from 'better-sqlite3';
 import path from 'path';
 import fs from 'fs';
-import {
-  Company,
-  Evaluation,
-  AnalysisStep,
-  WorkflowStepDefinition,
-} from './schema';
+import { Company, Evaluation, AnalysisStep, WorkflowStepDefinition } from './schema';
 
-const DB_PATH = process.env.DATABASE_PATH || path.join(process.cwd(), 'data', 'investment-analyzer.db');
+const DB_PATH =
+  process.env.DATABASE_PATH || path.join(process.cwd(), 'data', 'investment-analyzer.db');
 
 // Ensure data directory exists
 const dataDir = path.dirname(DB_PATH);
@@ -89,7 +85,9 @@ export function createCompany(name: string, ticker?: string, sector?: string): C
   const stmt = db.prepare('INSERT INTO companies (name, ticker, sector) VALUES (?, ?, ?)');
   const result = stmt.run(name, ticker, sector);
 
-  const company = db.prepare('SELECT * FROM companies WHERE id = ?').get(result.lastInsertRowid) as Company;
+  const company = db
+    .prepare('SELECT * FROM companies WHERE id = ?')
+    .get(result.lastInsertRowid) as Company;
   return company;
 }
 
@@ -97,7 +95,9 @@ export function getOrCreateCompany(name: string, ticker?: string): Company {
   const db = getDatabase();
 
   // Try to find existing company
-  let company = db.prepare('SELECT * FROM companies WHERE name = ?').get(name) as Company | undefined;
+  let company = db.prepare('SELECT * FROM companies WHERE name = ?').get(name) as
+    | Company
+    | undefined;
 
   if (!company) {
     company = createCompany(name, ticker);
@@ -117,7 +117,9 @@ export function createEvaluation(companyId: number): Evaluation {
   const stmt = db.prepare('INSERT INTO evaluations (company_id, status) VALUES (?, ?)');
   const result = stmt.run(companyId, 'pending');
 
-  return db.prepare('SELECT * FROM evaluations WHERE id = ?').get(result.lastInsertRowid) as Evaluation;
+  return db
+    .prepare('SELECT * FROM evaluations WHERE id = ?')
+    .get(result.lastInsertRowid) as Evaluation;
 }
 
 export function updateEvaluation(
@@ -142,28 +144,37 @@ export function updateEvaluation(
 
 export function getEvaluation(evaluationId: number): Evaluation | undefined {
   const db = getDatabase();
-  return db.prepare(`
+  return db
+    .prepare(
+      `
     SELECT e.*, c.name as company_name, c.ticker
     FROM evaluations e
     JOIN companies c ON e.company_id = c.id
     WHERE e.id = ?
-  `).get(evaluationId) as Evaluation | undefined;
+  `
+    )
+    .get(evaluationId) as Evaluation | undefined;
 }
 
 export function getEvaluationsByCompany(companyId: number): Evaluation[] {
   const db = getDatabase();
-  return db.prepare('SELECT * FROM evaluations WHERE company_id = ? ORDER BY created_at DESC')
+  return db
+    .prepare('SELECT * FROM evaluations WHERE company_id = ? ORDER BY created_at DESC')
     .all(companyId) as Evaluation[];
 }
 
 export function getAllEvaluations(): Evaluation[] {
   const db = getDatabase();
-  return db.prepare(`
+  return db
+    .prepare(
+      `
     SELECT e.*, c.name as company_name, c.ticker
     FROM evaluations e
     JOIN companies c ON e.company_id = c.id
     ORDER BY e.created_at DESC
-  `).all() as Evaluation[];
+  `
+    )
+    .all() as Evaluation[];
 }
 
 // Analysis step operations
@@ -180,7 +191,9 @@ export function createAnalysisStep(
   `);
   const result = stmt.run(evaluationId, stepName, stepType, source);
 
-  return db.prepare('SELECT * FROM analysis_steps WHERE id = ?').get(result.lastInsertRowid) as AnalysisStep;
+  return db
+    .prepare('SELECT * FROM analysis_steps WHERE id = ?')
+    .get(result.lastInsertRowid) as AnalysisStep;
 }
 
 export function updateAnalysisStep(
@@ -204,11 +217,14 @@ export function updateAnalysisStep(
 
 export function getAnalysisSteps(evaluationId: number): AnalysisStep[] {
   const db = getDatabase();
-  return db.prepare('SELECT * FROM analysis_steps WHERE evaluation_id = ? ORDER BY id')
+  return db
+    .prepare('SELECT * FROM analysis_steps WHERE evaluation_id = ? ORDER BY id')
     .all(evaluationId) as AnalysisStep[];
 }
 
 export function getAnalysisStep(stepId: number): AnalysisStep | undefined {
   const db = getDatabase();
-  return db.prepare('SELECT * FROM analysis_steps WHERE id = ?').get(stepId) as AnalysisStep | undefined;
+  return db.prepare('SELECT * FROM analysis_steps WHERE id = ?').get(stepId) as
+    | AnalysisStep
+    | undefined;
 }

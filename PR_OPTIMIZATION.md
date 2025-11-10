@@ -5,32 +5,40 @@ This document outlines what's missing from the current PR and what should be add
 ## 🔴 Critical - Must Have Before Merge
 
 ### 1. Code Quality & Linting
+
 - [ ] **ESLint Configuration** - Missing
+
   ```bash
   npm install -D eslint eslint-config-next @typescript-eslint/parser @typescript-eslint/eslint-plugin
   ```
+
   - Create `.eslintrc.json`
   - Configure rules for TypeScript + React
   - Add lint script: `"lint": "next lint"`
   - Fix all linting errors
 
 - [ ] **Prettier Configuration** - Missing
+
   ```bash
   npm install -D prettier eslint-config-prettier
   ```
+
   - Create `.prettierrc`
   - Add format scripts: `"format": "prettier --write ."`
   - Format all existing code
 
 - [ ] **Git Hooks (Husky)** - Recommended
+
   ```bash
   npm install -D husky lint-staged
   ```
+
   - Pre-commit: Run lint + format
   - Pre-push: Run type check
   - Prevents bad code from being committed
 
 ### 2. Environment Setup
+
 - [ ] **Clear Setup Instructions in README**
   - Step-by-step environment setup
   - How to get Anthropic API key
@@ -55,6 +63,7 @@ This document outlines what's missing from the current PR and what should be add
     ```
 
 ### 3. Basic Error Handling
+
 - [ ] **API Route Error Handling**
   - Wrap all API routes in try-catch
   - Return consistent error format:
@@ -69,9 +78,11 @@ This document outlines what's missing from the current PR and what should be add
   - HTTP status codes (400, 404, 500)
 
 - [ ] **React Error Boundary**
+
   ```bash
   npm install react-error-boundary
   ```
+
   - Create `components/ErrorBoundary.tsx`
   - Wrap entire app in `app/layout.tsx`
   - Show friendly error UI
@@ -84,7 +95,9 @@ This document outlines what's missing from the current PR and what should be add
   - Graceful degradation
 
 ### 4. Basic Input Validation
+
 - [ ] **Install Zod**
+
   ```bash
   npm install zod
   ```
@@ -107,6 +120,7 @@ This document outlines what's missing from the current PR and what should be add
   - Sanitize all inputs (XSS prevention)
 
 ### 5. Loading States & UX
+
 - [ ] **Loading Indicators**
   - Create `components/ui/spinner.tsx`
   - Add to all async operations
@@ -130,6 +144,7 @@ This document outlines what's missing from the current PR and what should be add
   - Prevent user from leaving during analysis
 
 ### 6. TypeScript Improvements
+
 - [ ] **Stricter TypeScript Config**
   - Enable: `"noImplicitAny": true`
   - Enable: `"strictNullChecks": true`
@@ -149,6 +164,7 @@ This document outlines what's missing from the current PR and what should be add
   - Use TypeScript generics where appropriate
 
 ### 7. Documentation
+
 - [ ] **Enhanced README**
   - Prerequisites section
   - Installation steps (numbered)
@@ -173,6 +189,7 @@ This document outlines what's missing from the current PR and what should be add
   - PR process
 
 ### 8. Security
+
 - [ ] **Environment Variables**
   - Ensure `.env` is in `.gitignore` ✅ (already done)
   - Never expose API keys
@@ -199,7 +216,9 @@ This document outlines what's missing from the current PR and what should be add
 ## 🟠 High Priority - Should Have Before Merge
 
 ### 9. Testing Foundation
+
 - [ ] **Install Testing Tools**
+
   ```bash
   npm install -D vitest @testing-library/react @testing-library/jest-dom jsdom
   ```
@@ -216,6 +235,7 @@ This document outlines what's missing from the current PR and what should be add
   - Test: `cn()` className merging
 
 ### 10. Database Improvements
+
 - [ ] **Migration System**
   - Create `scripts/migrate.js` (currently empty)
   - Track schema version
@@ -234,7 +254,9 @@ This document outlines what's missing from the current PR and what should be add
   - For development/testing
 
 ### 11. Package.json Improvements
+
 - [ ] **Add More Scripts**
+
   ```json
   {
     "scripts": {
@@ -269,6 +291,7 @@ This document outlines what's missing from the current PR and what should be add
   - Create `LICENSE` file
 
 ### 12. GitHub Repository Setup
+
 - [ ] **LICENSE File**
   - Create `LICENSE` file with ISC or MIT
   - Include copyright year and holder
@@ -288,6 +311,7 @@ This document outlines what's missing from the current PR and what should be add
   - Checklist for contributors
 
 ### 13. CI/CD (Basic)
+
 - [ ] **GitHub Actions Workflow**
   - Create `.github/workflows/ci.yml`
   - Run on: push, pull_request
@@ -298,6 +322,7 @@ This document outlines what's missing from the current PR and what should be add
     - Run tests (when added)
 
 Example workflow:
+
 ```yaml
 name: CI
 
@@ -322,6 +347,7 @@ jobs:
 ## 🟡 Medium Priority - Nice to Have
 
 ### 14. Performance Optimizations
+
 - [ ] **Image Optimization**
   - Use Next.js `<Image>` component
   - Optimize logo/icons
@@ -338,6 +364,7 @@ jobs:
   - Optimize large dependencies
 
 ### 15. Accessibility Basics
+
 - [ ] **ARIA Labels**
   - Add to icon buttons
   - Add to form inputs
@@ -354,6 +381,7 @@ jobs:
   - Alt text for images
 
 ### 16. SEO Improvements
+
 - [ ] **Meta Tags**
   - Open Graph tags
   - Twitter cards
@@ -368,6 +396,7 @@ jobs:
   - Update on build
 
 ### 17. Monitoring Setup (Prep)
+
 - [ ] **Error Tracking Prep**
   - Document Sentry integration plan
   - Add TODO in TASKS.md
@@ -383,6 +412,7 @@ jobs:
 ## 🟢 Low Priority - Future PRs
 
 ### 18. Advanced Features (Post-MVP)
+
 - [ ] Real financial data integration
 - [ ] Advanced calculations (DCF, etc.)
 - [ ] Charts and visualizations
@@ -391,6 +421,7 @@ jobs:
 - [ ] Export functionality
 
 ### 19. Infrastructure (Later)
+
 - [ ] Docker setup
 - [ ] Docker Compose
 - [ ] Deployment docs
@@ -402,6 +433,7 @@ jobs:
 ## Suggested Implementation Order
 
 ### Phase 1: Code Quality (2-3 hours)
+
 1. Add ESLint config
 2. Add Prettier config
 3. Format all code
@@ -409,41 +441,48 @@ jobs:
 5. Add git hooks (Husky)
 
 ### Phase 2: Error Handling (2-3 hours)
+
 6. Add error boundary component
 7. Wrap all API routes in try-catch
 8. Add database error handling
 9. Create consistent error responses
 
 ### Phase 3: Validation (1-2 hours)
+
 10. Install Zod
 11. Create validation schemas
 12. Add client-side validation
 13. Add server-side validation
 
 ### Phase 4: UX Polish (2-3 hours)
+
 14. Add loading spinners
 15. Create skeleton screens
 16. Add empty states
 17. Improve progress indicators
 
 ### Phase 5: Environment & Setup (1-2 hours)
+
 18. Create database init script
 19. Add environment validation
 20. Enhance README with setup guide
 21. Add troubleshooting section
 
 ### Phase 6: Testing (2-3 hours)
+
 22. Install testing tools
 23. Write basic smoke tests
 24. Test utility functions
 25. Add test script to CI
 
 ### Phase 7: CI/CD (1 hour)
+
 26. Create GitHub Actions workflow
 27. Add lint/type-check/build
 28. Test workflow
 
 ### Phase 8: Documentation (1-2 hours)
+
 29. Create LICENSE file
 30. Create CONTRIBUTING.md
 31. Add issue templates
@@ -470,6 +509,7 @@ These can be done immediately with minimal effort:
 ## What's Already Good ✅
 
 Don't need to fix these:
+
 - [x] TypeScript strict mode enabled
 - [x] Proper project structure
 - [x] Comprehensive documentation (OVERVIEW, ARCHITECTURE, TASKS, etc.)
@@ -487,18 +527,21 @@ Don't need to fix these:
 ## Risk Assessment
 
 ### High Risk if Not Fixed
+
 - No error handling → App crashes on errors
 - No input validation → Security vulnerabilities
 - No environment validation → Confusing errors
 - No linting → Code quality degrades
 
 ### Medium Risk
+
 - No tests → Regressions likely
 - No CI/CD → Manual verification needed
 - No database init → Setup friction
 - No loading states → Poor UX
 
 ### Low Risk
+
 - No advanced features → Expected for MVP
 - No monitoring → Can add later
 - No advanced security → Can layer in
@@ -508,6 +551,7 @@ Don't need to fix these:
 ## Recommendation
 
 **Before Merging:**
+
 1. Add code quality tools (ESLint, Prettier) - 30 min
 2. Add basic error handling - 2 hours
 3. Add input validation - 1 hour
@@ -518,6 +562,7 @@ Don't need to fix these:
 **Total: ~5.5 hours to make PR production-ready**
 
 **After Merging (Follow-up PRs):**
+
 - Testing setup
 - CI/CD pipeline
 - Advanced features

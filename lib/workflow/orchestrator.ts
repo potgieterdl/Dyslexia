@@ -1,15 +1,5 @@
-import {
-  WorkflowContext,
-  WorkflowStep,
-  StepResult,
-  WorkflowResult,
-} from './types';
-import {
-  createAnalysisStep,
-  updateAnalysisStep,
-  updateEvaluation,
-  getAnalysisSteps,
-} from '../db';
+import { WorkflowContext, WorkflowStep, StepResult, WorkflowResult } from './types';
+import { createAnalysisStep, updateAnalysisStep, updateEvaluation, getAnalysisSteps } from '../db';
 
 export class WorkflowOrchestrator {
   private steps: WorkflowStep[] = [];

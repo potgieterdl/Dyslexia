@@ -51,7 +51,8 @@ export const DEFAULT_WORKFLOW_STEPS: WorkflowStepDefinition[] = [
     name: 'financial_statements',
     type: 'ai',
     source: 'Financial Statements Analysis',
-    description: 'Analyze company financial statements including balance sheet, income statement, and cash flow',
+    description:
+      'Analyze company financial statements including balance sheet, income statement, and cash flow',
     order: 1,
     enabled: true,
   },

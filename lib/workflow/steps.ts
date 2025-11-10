@@ -31,7 +31,9 @@ abstract class AIAnalysisStep implements WorkflowStep {
         },
       };
     } catch (error) {
-      throw new Error(`AI analysis failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      throw new Error(
+        `AI analysis failed: ${error instanceof Error ? error.message : 'Unknown error'}`
+      );
     }
   }
 
@@ -63,7 +65,8 @@ abstract class AIAnalysisStep implements WorkflowStep {
 export class FinancialStatementsStep extends AIAnalysisStep {
   name = 'financial_statements';
   source = 'Financial Statements Analysis';
-  description = 'Analyze company financial statements including balance sheet, income statement, and cash flow';
+  description =
+    'Analyze company financial statements including balance sheet, income statement, and cash flow';
   order = 1;
 }
 
@@ -165,9 +168,6 @@ export class ManualValuationStep implements WorkflowStep {
 
   canExecute(context: WorkflowContext): boolean {
     // Only execute if previous steps are successful
-    return (
-      context.previousStepResults !== undefined &&
-      context.previousStepResults.size > 0
-    );
+    return context.previousStepResults !== undefined && context.previousStepResults.size > 0;
   }
 }

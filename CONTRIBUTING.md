@@ -40,6 +40,7 @@ Be respectful, inclusive, and constructive. We're all here to build something gr
 #### Development Workflow
 
 1. **Fork & Clone**
+
    ```bash
    git fork https://github.com/potgieterdl/Dyslexia
    git clone https://github.com/YOUR_USERNAME/Dyslexia
@@ -47,22 +48,26 @@ Be respectful, inclusive, and constructive. We're all here to build something gr
    ```
 
 2. **Install Dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Set Up Environment**
+
    ```bash
    cp .env.example .env
    # Add your ANTHROPIC_API_KEY to .env
    ```
 
 4. **Initialize Database**
+
    ```bash
    npm run db:init
    ```
 
 5. **Create Feature Branch**
+
    ```bash
    git checkout -b feature/your-feature-name
    # or
@@ -76,6 +81,7 @@ Be respectful, inclusive, and constructive. We're all here to build something gr
    - Update documentation if needed
 
 7. **Test Your Changes**
+
    ```bash
    npm run dev        # Test locally
    npm run lint       # Check for linting errors
@@ -85,12 +91,14 @@ Be respectful, inclusive, and constructive. We're all here to build something gr
    ```
 
 8. **Commit Your Changes**
+
    ```bash
    git add .
    git commit -m "feat: add amazing feature"
    ```
 
    **Commit Message Format:**
+
    ```
    <type>: <description>
 
@@ -110,6 +118,7 @@ Be respectful, inclusive, and constructive. We're all here to build something gr
    - `perf`: Performance improvements
 
    **Examples:**
+
    ```
    feat: add DCF valuation model
    fix: resolve database connection leak
@@ -118,6 +127,7 @@ Be respectful, inclusive, and constructive. We're all here to build something gr
    ```
 
 9. **Push to Your Fork**
+
    ```bash
    git push origin feature/your-feature-name
    ```
@@ -132,6 +142,7 @@ Be respectful, inclusive, and constructive. We're all here to build something gr
 #### Pull Request Guidelines
 
 **Before Submitting:**
+
 - [ ] Code follows project style guidelines
 - [ ] All tests pass (when tests exist)
 - [ ] No linting errors
@@ -141,6 +152,7 @@ Be respectful, inclusive, and constructive. We're all here to build something gr
 - [ ] Commit messages follow convention
 
 **PR Description Should Include:**
+
 - Summary of changes
 - Motivation and context
 - Related issues (e.g., "Closes #123")
@@ -149,27 +161,34 @@ Be respectful, inclusive, and constructive. We're all here to build something gr
 - How to test the changes
 
 **Example PR Description:**
+
 ```markdown
 ## Summary
+
 Adds DCF valuation model to calculate intrinsic value of companies.
 
 ## Motivation
+
 Users need to understand if a stock is undervalued or overvalued based on cash flow projections.
 
 ## Changes
+
 - Created `lib/analysis/dcf.ts` with DCF calculation logic
 - Added UI component to display valuation results
 - Updated workflow to include valuation step
 
 ## Related Issues
+
 Closes #45
 
 ## Testing
+
 1. Run analysis on any company
 2. Check "Valuation" section in results
 3. Verify DCF calculation matches manual calculation
 
 ## Screenshots
+
 [Add screenshot of DCF results]
 ```
 
@@ -184,6 +203,7 @@ Closes #45
 - Use type unions for variants
 
 **Good:**
+
 ```typescript
 interface AnalysisResult {
   score: number;
@@ -197,6 +217,7 @@ function analyzeCompany(name: string): Promise<AnalysisResult> {
 ```
 
 **Bad:**
+
 ```typescript
 function analyzeCompany(name: any): any {
   // ...
@@ -212,6 +233,7 @@ function analyzeCompany(name: any): any {
 - Extract reusable logic
 
 **Good:**
+
 ```typescript
 interface ButtonProps {
   onClick: () => void;
@@ -261,12 +283,14 @@ components/
 - Keep comments up to date
 
 **Good:**
+
 ```typescript
 // Use exponential backoff to avoid overwhelming the API during high load
 const delay = Math.pow(2, retryCount) * 1000;
 ```
 
 **Bad:**
+
 ```typescript
 // Set delay to 2 to the power of retryCount times 1000
 const delay = Math.pow(2, retryCount) * 1000;
@@ -319,6 +343,7 @@ describe('calculateScore', () => {
 ## Recognition
 
 Contributors will be:
+
 - Listed in release notes
 - Mentioned in CHANGELOG
 - Added to contributors list

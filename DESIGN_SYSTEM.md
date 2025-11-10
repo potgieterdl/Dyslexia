@@ -5,24 +5,28 @@ This document defines the design system, component architecture, and UX patterns
 ## Design Principles
 
 ### 1. Clarity Over Complexity
+
 - Financial data should be easy to understand
 - Avoid jargon without explanation
 - Use visual hierarchies to guide attention
 - Progressive disclosure of details
 
 ### 2. Trust & Credibility
+
 - Show data sources clearly
 - Indicate confidence levels
 - Provide disclaimers
 - Professional, clean aesthetics
 
 ### 3. Efficiency
+
 - Common tasks should be 1-3 clicks
 - Smart defaults
 - Keyboard shortcuts
 - Quick actions everywhere
 
 ### 4. Transparency
+
 - Show methodology
 - Explain calculations
 - Indicate AI vs calculated data
@@ -33,52 +37,41 @@ This document defines the design system, component architecture, and UX patterns
 ## Color System
 
 ### Brand Colors
+
 ```css
---primary: hsl(221.2 83.2% 53.3%)      /* Blue - Trust, Stability */
---primary-hover: hsl(221.2 83.2% 48%)
---primary-foreground: hsl(210 40% 98%)
+--primary: hsl(221.2 83.2% 53.3%) /* Blue - Trust, Stability */
+  --primary-hover: hsl(221.2 83.2% 48%) --primary-foreground: hsl(210 40% 98%);
 ```
 
 ### Semantic Colors
+
 ```css
 /* Success / Positive / Buy */
---success: hsl(142.1 76.2% 36.3%)      /* Green */
---success-light: hsl(142.1 76.2% 90%)
---success-foreground: hsl(355.7 100% 97.3%)
-
-/* Warning / Hold / Neutral */
---warning: hsl(45.4 93.4% 47.5%)       /* Amber */
---warning-light: hsl(45.4 93.4% 90%)
---warning-foreground: hsl(26 83.3% 14.1%)
-
-/* Destructive / Negative / Sell */
---destructive: hsl(0 84.2% 60.2%)      /* Red */
---destructive-light: hsl(0 84.2% 95%)
---destructive-foreground: hsl(210 40% 98%)
-
-/* Information */
---info: hsl(199 89% 48%)               /* Sky Blue */
---info-light: hsl(199 89% 95%)
+--success: hsl(142.1 76.2% 36.3%) /* Green */ --success-light: hsl(142.1 76.2% 90%)
+  --success-foreground: hsl(355.7 100% 97.3%) /* Warning / Hold / Neutral */
+  --warning: hsl(45.4 93.4% 47.5%) /* Amber */ --warning-light: hsl(45.4 93.4% 90%)
+  --warning-foreground: hsl(26 83.3% 14.1%) /* Destructive / Negative / Sell */
+  --destructive: hsl(0 84.2% 60.2%) /* Red */ --destructive-light: hsl(0 84.2% 95%)
+  --destructive-foreground: hsl(210 40% 98%) /* Information */ --info: hsl(199 89% 48%)
+  /* Sky Blue */ --info-light: hsl(199 89% 95%);
 ```
 
 ### Rating Color Scale
+
 ```css
 /* For scores -100 to +100 */
---score-very-negative: hsl(0 84.2% 60.2%)    /* -100 to -60 */
---score-negative: hsl(14 91.9% 68.6%)        /* -60 to -30 */
---score-neutral: hsl(45.4 93.4% 47.5%)       /* -30 to +30 */
---score-positive: hsl(142.1 76.2% 55%)       /* +30 to +60 */
---score-very-positive: hsl(142.1 76.2% 36.3%)/* +60 to +100 */
+--score-very-negative: hsl(0 84.2% 60.2%) /* -100 to -60 */ --score-negative: hsl(14 91.9% 68.6%)
+  /* -60 to -30 */ --score-neutral: hsl(45.4 93.4% 47.5%) /* -30 to +30 */
+  --score-positive: hsl(142.1 76.2% 55%) /* +30 to +60 */
+  --score-very-positive: hsl(142.1 76.2% 36.3%) /* +60 to +100 */;
 ```
 
 ### Neutral Colors
+
 ```css
---background: hsl(0 0% 100%)
---foreground: hsl(222.2 84% 4.9%)
---muted: hsl(210 40% 96.1%)
---muted-foreground: hsl(215.4 16.3% 46.9%)
---border: hsl(214.3 31.8% 91.4%)
---input: hsl(214.3 31.8% 91.4%)
+--background: hsl(0 0% 100%) --foreground: hsl(222.2 84% 4.9%) --muted: hsl(210 40% 96.1%)
+  --muted-foreground: hsl(215.4 16.3% 46.9%) --border: hsl(214.3 31.8% 91.4%)
+  --input: hsl(214.3 31.8% 91.4%);
 ```
 
 ---
@@ -86,25 +79,28 @@ This document defines the design system, component architecture, and UX patterns
 ## Typography
 
 ### Font Stack
+
 ```css
-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-             'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-             'Helvetica Neue', sans-serif;
+font-family:
+  -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
+  'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 ```
 
 ### Type Scale
+
 ```css
---text-xs: 0.75rem;    /* 12px - Captions, labels */
---text-sm: 0.875rem;   /* 14px - Body small, helper text */
---text-base: 1rem;     /* 16px - Body text */
---text-lg: 1.125rem;   /* 18px - Large body, subtitles */
---text-xl: 1.25rem;    /* 20px - Section headings */
---text-2xl: 1.5rem;    /* 24px - Card titles */
---text-3xl: 1.875rem;  /* 30px - Page titles */
---text-4xl: 2.25rem;   /* 36px - Hero text */
+--text-xs: 0.75rem; /* 12px - Captions, labels */
+--text-sm: 0.875rem; /* 14px - Body small, helper text */
+--text-base: 1rem; /* 16px - Body text */
+--text-lg: 1.125rem; /* 18px - Large body, subtitles */
+--text-xl: 1.25rem; /* 20px - Section headings */
+--text-2xl: 1.5rem; /* 24px - Card titles */
+--text-3xl: 1.875rem; /* 30px - Page titles */
+--text-4xl: 2.25rem; /* 36px - Hero text */
 ```
 
 ### Font Weights
+
 ```css
 --font-normal: 400;
 --font-medium: 500;
@@ -113,9 +109,10 @@ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
 ```
 
 ### Line Heights
+
 ```css
---leading-tight: 1.25;   /* Headings */
---leading-normal: 1.5;   /* Body text */
+--leading-tight: 1.25; /* Headings */
+--leading-normal: 1.5; /* Body text */
 --leading-relaxed: 1.75; /* Large text blocks */
 ```
 
@@ -124,20 +121,22 @@ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
 ## Spacing System
 
 ### Base Unit: 4px
+
 ```css
---space-1: 0.25rem;  /* 4px */
---space-2: 0.5rem;   /* 8px */
---space-3: 0.75rem;  /* 12px */
---space-4: 1rem;     /* 16px */
---space-5: 1.25rem;  /* 20px */
---space-6: 1.5rem;   /* 24px */
---space-8: 2rem;     /* 32px */
---space-10: 2.5rem;  /* 40px */
---space-12: 3rem;    /* 48px */
---space-16: 4rem;    /* 64px */
+--space-1: 0.25rem; /* 4px */
+--space-2: 0.5rem; /* 8px */
+--space-3: 0.75rem; /* 12px */
+--space-4: 1rem; /* 16px */
+--space-5: 1.25rem; /* 20px */
+--space-6: 1.5rem; /* 24px */
+--space-8: 2rem; /* 32px */
+--space-10: 2.5rem; /* 40px */
+--space-12: 3rem; /* 48px */
+--space-16: 4rem; /* 64px */
 ```
 
 ### Usage Guidelines
+
 - Tiny elements (icons, badges): space-1, space-2
 - Component padding: space-4, space-6
 - Section spacing: space-8, space-12
@@ -148,11 +147,11 @@ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
 ## Border Radius
 
 ```css
---radius-sm: 0.25rem;  /* 4px - Small elements */
---radius: 0.5rem;      /* 8px - Default */
---radius-md: 0.75rem;  /* 12px - Cards */
---radius-lg: 1rem;     /* 16px - Large cards */
---radius-xl: 1.5rem;   /* 24px - Feature elements */
+--radius-sm: 0.25rem; /* 4px - Small elements */
+--radius: 0.5rem; /* 8px - Default */
+--radius-md: 0.75rem; /* 12px - Cards */
+--radius-lg: 1rem; /* 16px - Large cards */
+--radius-xl: 1.5rem; /* 24px - Feature elements */
 --radius-full: 9999px; /* Fully rounded - Pills, avatars */
 ```
 
@@ -169,6 +168,7 @@ font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
 ```
 
 ### Usage
+
 - Cards: shadow-sm or shadow
 - Dropdowns: shadow-md
 - Modals: shadow-lg
@@ -226,7 +226,7 @@ components/
 
 ```tsx
 interface ScoreDisplayProps {
-  score: number;        // -100 to 100
+  score: number; // -100 to 100
   size?: 'sm' | 'md' | 'lg';
   showLabel?: boolean;
   showTrend?: boolean;
@@ -239,6 +239,7 @@ interface ScoreDisplayProps {
 ```
 
 **Variants**:
+
 - Inline: Small, single line
 - Card: Medium, with label
 - Hero: Large, prominent display
@@ -294,6 +295,7 @@ interface AnalysisStepCardProps {
 ```
 
 **States**:
+
 - Collapsed: Shows score and status
 - Expanded: Shows full analysis
 - Loading: Shows skeleton
@@ -527,24 +529,28 @@ interface ChartContainerProps {
 ## Interaction Patterns
 
 ### 1. Progressive Disclosure
+
 - Show summary by default
 - "View Details" expands full information
 - Breadcrumbs for navigation context
 - Tooltips for explanations
 
 ### 2. Optimistic Updates
+
 - Show expected state immediately
 - Update with real data when available
 - Show loading only for slow operations
 - Revert on error with notification
 
 ### 3. Contextual Actions
+
 - Actions appear on hover
 - Quick actions in cards
 - Bulk actions with selection
 - Keyboard shortcuts
 
 ### 4. Feedback Patterns
+
 - Toast for transient messages
 - Modal for important confirmations
 - Inline validation
@@ -556,16 +562,27 @@ interface ChartContainerProps {
 
 ```css
 /* Mobile First Approach */
-@media (min-width: 640px)  { /* sm - Small tablet */ }
-@media (min-width: 768px)  { /* md - Tablet */ }
-@media (min-width: 1024px) { /* lg - Desktop */ }
-@media (min-width: 1280px) { /* xl - Large desktop */ }
-@media (min-width: 1536px) { /* 2xl - Extra large */ }
+@media (min-width: 640px) {
+  /* sm - Small tablet */
+}
+@media (min-width: 768px) {
+  /* md - Tablet */
+}
+@media (min-width: 1024px) {
+  /* lg - Desktop */
+}
+@media (min-width: 1280px) {
+  /* xl - Large desktop */
+}
+@media (min-width: 1536px) {
+  /* 2xl - Extra large */
+}
 ```
 
 ### Layout Changes by Breakpoint
 
 **Mobile (< 640px)**:
+
 - Single column layout
 - Collapsible sidebar (drawer)
 - Stack all cards vertically
@@ -573,12 +590,14 @@ interface ChartContainerProps {
 - Bottom navigation bar
 
 **Tablet (640px - 1024px)**:
+
 - Two column where appropriate
 - Persistent sidebar
 - Side-by-side comparison limited to 2
 - Full-featured charts
 
 **Desktop (> 1024px)**:
+
 - Three column layouts
 - Full sidebar with labels
 - Up to 4 companies in comparison
@@ -590,24 +609,28 @@ interface ChartContainerProps {
 ## Accessibility Guidelines
 
 ### Color Contrast
+
 - All text meets WCAG AA standard (4.5:1)
 - Important elements meet AAA (7:1)
 - Don't rely solely on color
 - Use icons + color for status
 
 ### Keyboard Navigation
+
 - Tab through all interactive elements
 - Escape closes modals/dropdowns
 - Enter/Space activates buttons
 - Arrow keys for lists/menus
 
 ### Screen Readers
+
 - Semantic HTML (header, nav, main, section)
 - ARIA labels for icons
 - ARIA live regions for dynamic content
 - Skip links to main content
 
 ### Focus Indicators
+
 - Visible focus ring (2px solid)
 - High contrast focus indicators
 - Focus trap in modals
@@ -618,13 +641,15 @@ interface ChartContainerProps {
 ## Animation & Transitions
 
 ### Duration
+
 ```css
---duration-fast: 150ms;    /* Hover states */
---duration-normal: 300ms;  /* Most transitions */
---duration-slow: 500ms;    /* Page transitions */
+--duration-fast: 150ms; /* Hover states */
+--duration-normal: 300ms; /* Most transitions */
+--duration-slow: 500ms; /* Page transitions */
 ```
 
 ### Easing
+
 ```css
 --ease-in: cubic-bezier(0.4, 0, 1, 1);
 --ease-out: cubic-bezier(0, 0, 0.2, 1);
@@ -632,6 +657,7 @@ interface ChartContainerProps {
 ```
 
 ### Usage
+
 - Button hover: fast + ease-out
 - Card hover: normal + ease-out
 - Modal open: normal + ease-out
@@ -643,6 +669,7 @@ interface ChartContainerProps {
 ## Loading States
 
 ### Skeleton Screens
+
 ```tsx
 // Replace content with placeholder
 <div className="animate-pulse">
@@ -652,11 +679,13 @@ interface ChartContainerProps {
 ```
 
 ### Spinners
+
 - Small: 16px (inline)
 - Medium: 24px (buttons)
 - Large: 48px (page loading)
 
 ### Progress Bars
+
 - Determinate: Show percentage
 - Indeterminate: Show activity
 - Multi-step: Show steps
@@ -666,18 +695,20 @@ interface ChartContainerProps {
 ## Error States
 
 ### Error Hierarchy
+
 1. **Inline**: Field-level validation errors
 2. **Banner**: Page-level errors (dismissible)
 3. **Modal**: Critical errors requiring action
 4. **Toast**: Transient error notifications
 
 ### Error Messages
+
 ```tsx
 // Good: Specific and actionable
-"Company not found. Please check the ticker symbol."
+'Company not found. Please check the ticker symbol.';
 
 // Bad: Vague and unhelpful
-"An error occurred."
+'An error occurred.';
 ```
 
 ---
@@ -702,6 +733,7 @@ interface ChartContainerProps {
 ## Implementation Checklist
 
 ### For Each New Component
+
 - [ ] Follows naming convention (PascalCase)
 - [ ] Has TypeScript props interface
 - [ ] Includes prop documentation
@@ -716,6 +748,7 @@ interface ChartContainerProps {
 - [ ] Has unit tests
 
 ### For Each New Page
+
 - [ ] Has proper title/meta tags
 - [ ] Has loading skeleton
 - [ ] Has error boundary
@@ -732,18 +765,21 @@ interface ChartContainerProps {
 ## Future Enhancements
 
 ### Advanced Visualizations
+
 - 3D charts for complex data
 - Interactive financial statements
 - Animated transitions between states
 - Real-time data streaming
 
 ### Personalization
+
 - Customizable dashboard
 - Saved layouts
 - Color scheme preferences
 - Metric preferences
 
 ### Advanced Interactions
+
 - Drag-and-drop reordering
 - Inline editing
 - Collaborative features

@@ -4,6 +4,6 @@ const nextConfig = {
     resolveAlias: {},
   },
   serverExternalPackages: ['better-sqlite3'],
-}
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

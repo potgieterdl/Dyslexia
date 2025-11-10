@@ -2,7 +2,8 @@ const Database = require('better-sqlite3');
 const path = require('path');
 const fs = require('fs');
 
-const DB_PATH = process.env.DATABASE_PATH || path.join(__dirname, '..', 'data', 'investment-analyzer.db');
+const DB_PATH =
+  process.env.DATABASE_PATH || path.join(__dirname, '..', 'data', 'investment-analyzer.db');
 const dataDir = path.dirname(DB_PATH);
 
 // Ensure data directory exists
@@ -78,7 +79,7 @@ console.log('✓ Created indexes');
 
 // Check if tables exist
 const tables = db.prepare("SELECT name FROM sqlite_master WHERE type='table'").all();
-console.log('\nDatabase tables:', tables.map(t => t.name).join(', '));
+console.log('\nDatabase tables:', tables.map((t) => t.name).join(', '));
 
 db.close();
 console.log('\n✓ Database initialized successfully!');

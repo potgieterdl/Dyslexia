@@ -7,6 +7,7 @@ Build a comprehensive AI-powered investment analysis platform that helps investo
 ## What We're Building
 
 An intelligent investment verification tool that analyzes companies through multiple lenses:
+
 - **Financial Health**: Balance sheet, income statement, cash flow analysis
 - **Market Position**: Competitive analysis, market sentiment, technical indicators
 - **Future Potential**: Valuation models (DCF, DDM), growth projections
@@ -16,6 +17,7 @@ An intelligent investment verification tool that analyzes companies through mult
 ## Core Value Proposition
 
 ### For Retail Investors
+
 - **Comprehensive Analysis** in minutes instead of hours
 - **AI-Powered Insights** that explain complex financial data
 - **Clear Recommendations**: Simple Buy/Hold/Sell ratings with confidence scores
@@ -23,6 +25,7 @@ An intelligent investment verification tool that analyzes companies through mult
 - **Learn While Investing**: Understand the "why" behind each recommendation
 
 ### For Professional Analysts
+
 - **Automated First Pass**: Quick initial analysis before deep dive
 - **Customizable Workflows**: Add your own analysis steps
 - **Data Integration**: Pull from multiple financial data sources
@@ -32,6 +35,7 @@ An intelligent investment verification tool that analyzes companies through mult
 ## Key Features
 
 ### ✅ Currently Implemented (MVP)
+
 - [x] Company input with ticker lookup
 - [x] 6-step AI analysis workflow
 - [x] Buy/Hold/Sell recommendation system
@@ -43,6 +47,7 @@ An intelligent investment verification tool that analyzes companies through mult
 - [x] Extensible workflow architecture
 
 ### 🚧 In Progress
+
 - [ ] Error handling and logging
 - [ ] Input validation and security
 - [ ] Loading states and UX improvements
@@ -50,6 +55,7 @@ An intelligent investment verification tool that analyzes companies through mult
 - [ ] Financial ratios calculator
 
 ### 📋 Planned - Phase 1 (Foundation)
+
 - [ ] Data visualization (charts)
 - [ ] Responsive design (mobile/tablet)
 - [ ] Dark mode
@@ -58,6 +64,7 @@ An intelligent investment verification tool that analyzes companies through mult
 - [ ] Caching layer for API calls
 
 ### 📋 Planned - Phase 2 (Core Analysis)
+
 - [ ] DCF valuation model
 - [ ] Technical analysis indicators
 - [ ] Risk assessment metrics
@@ -66,6 +73,7 @@ An intelligent investment verification tool that analyzes companies through mult
 - [ ] Quality of earnings analysis
 
 ### 📋 Planned - Phase 3 (Advanced Features)
+
 - [ ] Portfolio management
 - [ ] Watchlist functionality
 - [ ] Price alerts and notifications
@@ -74,6 +82,7 @@ An intelligent investment verification tool that analyzes companies through mult
 - [ ] Historical analysis tracking
 
 ### 📋 Planned - Phase 4 (User Features)
+
 - [ ] User authentication
 - [ ] Saved preferences
 - [ ] Custom workflows
@@ -83,6 +92,7 @@ An intelligent investment verification tool that analyzes companies through mult
 ## Technology Stack
 
 ### Frontend
+
 - **Framework**: Next.js 16 (App Router)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS v4
@@ -91,6 +101,7 @@ An intelligent investment verification tool that analyzes companies through mult
 - **State Management**: React hooks + Context API
 
 ### Backend
+
 - **Runtime**: Node.js
 - **API**: Next.js API Routes
 - **Database**: SQLite (better-sqlite3)
@@ -99,12 +110,14 @@ An intelligent investment verification tool that analyzes companies through mult
 - **Background Jobs**: Bull/BullMQ (planned)
 
 ### External Services
+
 - **Financial Data**: Alpha Vantage / Yahoo Finance (planned)
 - **News**: NewsAPI / Google News (planned)
 - **Market Data**: IEX Cloud (planned)
 - **SEC Filings**: SEC EDGAR API (planned)
 
 ### DevOps
+
 - **Version Control**: Git + GitHub
 - **CI/CD**: GitHub Actions (planned)
 - **Deployment**: Vercel or Docker (planned)
@@ -140,18 +153,21 @@ investment-analyzer/
 ## Success Metrics
 
 ### Technical Metrics
+
 - **Performance**: Page load < 2s, API response < 1s
 - **Reliability**: 99.9% uptime, < 1% error rate
 - **Quality**: 80%+ test coverage
 - **Scalability**: Support 1000+ concurrent analyses
 
 ### User Metrics
+
 - **Efficiency**: Analysis completion < 2 minutes
 - **Accuracy**: 95%+ successful analysis completion
 - **Usability**: < 3 clicks to key features
 - **Satisfaction**: 4+ star user rating
 
 ### Business Metrics
+
 - **Cost**: < $0.50 per analysis (Claude API)
 - **Adoption**: 100+ active users in first month
 - **Engagement**: 70%+ return rate
@@ -160,6 +176,7 @@ investment-analyzer/
 ## Development Phases
 
 ### Phase 1: Foundation (Weeks 1-4)
+
 **Goal**: Production-ready MVP with real data
 
 - Fix critical bugs and add error handling
@@ -169,6 +186,7 @@ investment-analyzer/
 - Mobile responsive design
 
 ### Phase 2: Analysis Engine (Weeks 5-8)
+
 **Goal**: Advanced analysis capabilities
 
 - DCF and other valuation models
@@ -178,6 +196,7 @@ investment-analyzer/
 - Enhanced AI prompts
 
 ### Phase 3: User Experience (Weeks 9-12)
+
 **Goal**: Polished user interface
 
 - Portfolio management
@@ -187,6 +206,7 @@ investment-analyzer/
 - Historical tracking
 
 ### Phase 4: Scale & Polish (Weeks 13-16)
+
 **Goal**: Production launch
 
 - User authentication
@@ -198,12 +218,14 @@ investment-analyzer/
 ## Target Users
 
 ### Primary Users
+
 - **Retail Investors**: Individual investors researching stocks
 - **Value Investors**: Looking for undervalued companies
 - **Growth Investors**: Seeking high-growth opportunities
 - **Dividend Investors**: Focused on income generation
 
 ### Secondary Users
+
 - **Financial Advisors**: Quick client research
 - **Business Students**: Learning financial analysis
 - **Analysts**: Initial screening tool
@@ -212,6 +234,7 @@ investment-analyzer/
 ## Competitive Landscape
 
 ### Existing Solutions
+
 - **Bloomberg Terminal**: $2000/mo, professional only
 - **Seeking Alpha**: News and analysis, but no AI
 - **Yahoo Finance**: Free data, but no analysis
@@ -219,6 +242,7 @@ investment-analyzer/
 - **Morningstar**: Good research, expensive
 
 ### Our Differentiators
+
 1. **AI-Powered Analysis**: Automated insights from Claude
 2. **Extensible Workflows**: Customize analysis steps
 3. **Transparent Methodology**: Show all calculations
@@ -228,11 +252,13 @@ investment-analyzer/
 ## Revenue Model (Future)
 
 ### Free Tier
+
 - 5 analyses per month
 - Basic features
 - Community support
 
 ### Pro Tier ($19/month)
+
 - Unlimited analyses
 - Advanced features
 - Priority support
@@ -240,6 +266,7 @@ investment-analyzer/
 - API access
 
 ### Team Tier ($99/month)
+
 - Everything in Pro
 - Team collaboration
 - Custom workflows
@@ -249,40 +276,46 @@ investment-analyzer/
 ## Risk & Challenges
 
 ### Technical Risks
+
 - **API Costs**: Claude API can get expensive
-  - *Mitigation*: Aggressive caching, optimize prompts
+  - _Mitigation_: Aggressive caching, optimize prompts
 - **Data Quality**: Financial APIs can be unreliable
-  - *Mitigation*: Multiple data sources, validation
+  - _Mitigation_: Multiple data sources, validation
 - **Scalability**: SQLite won't scale forever
-  - *Mitigation*: Plan migration to PostgreSQL
+  - _Mitigation_: Plan migration to PostgreSQL
 
 ### Legal Risks
+
 - **Investment Advice**: Not licensed to give advice
-  - *Mitigation*: Clear disclaimers, educational focus
+  - _Mitigation_: Clear disclaimers, educational focus
 - **Data Licensing**: Financial data has restrictions
-  - *Mitigation*: Review all ToS, use free-tier data
+  - _Mitigation_: Review all ToS, use free-tier data
 
 ### Business Risks
+
 - **Competition**: Established players dominate
-  - *Mitigation*: Focus on unique AI workflow system
+  - _Mitigation_: Focus on unique AI workflow system
 - **User Acquisition**: Hard to reach target users
-  - *Mitigation*: Content marketing, Reddit, Twitter
+  - _Mitigation_: Content marketing, Reddit, Twitter
 
 ## Success Criteria
 
 ### MVP Success (Week 4)
+
 - [ ] 10 beta users actively testing
 - [ ] < 1 critical bug per day
 - [ ] 90%+ analysis completion rate
 - [ ] Positive user feedback
 
 ### Phase 1 Success (Week 8)
+
 - [ ] 50+ active users
 - [ ] Real financial data integrated
 - [ ] < $1 cost per analysis
 - [ ] 4+ star user rating
 
 ### Launch Success (Week 16)
+
 - [ ] 500+ registered users
 - [ ] 100+ paying customers
 - [ ] 99%+ uptime
@@ -311,12 +344,14 @@ investment-analyzer/
 ## Getting Started
 
 ### For Developers
+
 1. Read [ARCHITECTURE.md](./ARCHITECTURE.md) for technical overview
 2. Review [TASKS.md](./TASKS.md) for current tasks
 3. Check [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md) for UI guidelines
 4. See [ROADMAP.md](./ROADMAP.md) for long-term vision
 
 ### For Contributors
+
 1. Pick a task from [TASKS.md](./TASKS.md)
 2. Create a branch: `feature/task-name`
 3. Follow coding standards
@@ -324,6 +359,7 @@ investment-analyzer/
 5. Update documentation
 
 ### For Users
+
 1. Clone the repository
 2. Install dependencies: `npm install`
 3. Copy `.env.example` to `.env`

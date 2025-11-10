@@ -7,9 +7,11 @@ This is a tactical task list for near-term development. Tasks are organized by f
 ### Infrastructure & Stability
 
 #### Task 1: Error Handling System
+
 **Goal**: Prevent application crashes and provide useful error messages
 
 **Subtasks:**
+
 - [ ] Install error handling dependencies
   ```bash
   npm install winston react-error-boundary zod
@@ -23,6 +25,7 @@ This is a tactical task list for near-term development. Tasks are organized by f
 - [ ] Test error scenarios (network failure, invalid input, etc.)
 
 **Acceptance Criteria:**
+
 - No unhandled errors crash the application
 - All errors are logged with context
 - Users see friendly error messages
@@ -31,9 +34,11 @@ This is a tactical task list for near-term development. Tasks are organized by f
 ---
 
 #### Task 2: Input Validation
+
 **Goal**: Prevent invalid data from entering the system
 
 **Subtasks:**
+
 - [ ] Create validation schemas with Zod
   - [ ] Company name validation (1-200 chars)
   - [ ] Ticker symbol validation (1-10 chars, uppercase)
@@ -45,6 +50,7 @@ This is a tactical task list for near-term development. Tasks are organized by f
 - [ ] Test with edge cases (special chars, SQL injection attempts)
 
 **Acceptance Criteria:**
+
 - Invalid inputs are rejected before API calls
 - Clear validation error messages shown
 - SQL injection attempts are blocked
@@ -53,9 +59,11 @@ This is a tactical task list for near-term development. Tasks are organized by f
 ---
 
 #### Task 3: Loading States & UX
+
 **Goal**: Show users what's happening during long operations
 
 **Subtasks:**
+
 - [ ] Add loading spinner component `components/ui/spinner.tsx`
 - [ ] Create skeleton screens for results
 - [ ] Add progress indicator for analysis steps
@@ -66,6 +74,7 @@ This is a tactical task list for near-term development. Tasks are organized by f
 - [ ] Implement optimistic UI updates
 
 **Acceptance Criteria:**
+
 - No blank screens during loading
 - Users always know what's happening
 - Progress is visible during analysis
@@ -76,9 +85,11 @@ This is a tactical task list for near-term development. Tasks are organized by f
 ### Data Integration Foundation
 
 #### Task 4: Financial Data API Integration
+
 **Goal**: Get real financial data instead of AI-generated estimates
 
 **Subtasks:**
+
 - [ ] Research and choose primary data provider
   - Alpha Vantage (free tier available)
   - Yahoo Finance (yfinance library)
@@ -101,6 +112,7 @@ This is a tactical task list for near-term development. Tasks are organized by f
 - [ ] Test with various tickers
 
 **Acceptance Criteria:**
+
 - Can fetch real stock prices
 - Financial statements retrieved successfully
 - Multiple providers work as fallback
@@ -110,9 +122,11 @@ This is a tactical task list for near-term development. Tasks are organized by f
 ---
 
 #### Task 5: Enhanced Claude Analysis with Real Data
+
 **Goal**: Use real financial data in Claude prompts
 
 **Subtasks:**
+
 - [ ] Modify `lib/ai/claude.ts` to accept financial data
 - [ ] Update prompt templates to include real numbers
 - [ ] Add data context to each analysis step
@@ -123,6 +137,7 @@ This is a tactical task list for near-term development. Tasks are organized by f
 - [ ] Add data freshness indicators
 
 **Acceptance Criteria:**
+
 - Claude receives real financial data in prompts
 - Analysis is based on actual numbers
 - Data sources are cited
@@ -133,43 +148,46 @@ This is a tactical task list for near-term development. Tasks are organized by f
 ### Core Calculations
 
 #### Task 6: Financial Ratios Calculator
+
 **Goal**: Calculate key financial ratios from real data
 
 **Subtasks:**
+
 - [ ] Create `lib/analysis/ratios.ts`
 - [ ] Implement liquidity ratios
   ```typescript
-  currentRatio(currentAssets, currentLiabilities)
-  quickRatio(currentAssets, inventory, currentLiabilities)
-  cashRatio(cash, currentLiabilities)
+  currentRatio(currentAssets, currentLiabilities);
+  quickRatio(currentAssets, inventory, currentLiabilities);
+  cashRatio(cash, currentLiabilities);
   ```
 - [ ] Implement profitability ratios
   ```typescript
-  returnOnEquity(netIncome, shareholderEquity)
-  returnOnAssets(netIncome, totalAssets)
-  profitMargin(netIncome, revenue)
+  returnOnEquity(netIncome, shareholderEquity);
+  returnOnAssets(netIncome, totalAssets);
+  profitMargin(netIncome, revenue);
   ```
 - [ ] Implement leverage ratios
   ```typescript
-  debtToEquity(totalDebt, shareholderEquity)
-  interestCoverage(ebit, interestExpense)
+  debtToEquity(totalDebt, shareholderEquity);
+  interestCoverage(ebit, interestExpense);
   ```
 - [ ] Implement efficiency ratios
   ```typescript
-  assetTurnover(revenue, totalAssets)
-  inventoryTurnover(cogs, inventory)
+  assetTurnover(revenue, totalAssets);
+  inventoryTurnover(cogs, inventory);
   ```
 - [ ] Add valuation ratios
   ```typescript
-  priceToEarnings(stockPrice, eps)
-  priceToBook(stockPrice, bookValuePerShare)
-  pegRatio(pe, growthRate)
+  priceToEarnings(stockPrice, eps);
+  priceToBook(stockPrice, bookValuePerShare);
+  pegRatio(pe, growthRate);
   ```
 - [ ] Add unit tests for all calculations
 - [ ] Create ratio interpretation guide
 - [ ] Add ratio scoring system
 
 **Acceptance Criteria:**
+
 - All major ratios calculated correctly
 - Handles edge cases (zero division, negative values)
 - Unit tests pass
@@ -180,9 +198,11 @@ This is a tactical task list for near-term development. Tasks are organized by f
 ### UI Improvements
 
 #### Task 7: Data Visualization - Charts
+
 **Goal**: Visualize financial data and analysis results
 
 **Subtasks:**
+
 - [ ] Install chart library
   ```bash
   npm install recharts
@@ -200,6 +220,7 @@ This is a tactical task list for near-term development. Tasks are organized by f
 - [ ] Style charts to match theme
 
 **Acceptance Criteria:**
+
 - Charts render on all screen sizes
 - Data updates smoothly
 - Tooltips show detailed information
@@ -208,9 +229,11 @@ This is a tactical task list for near-term development. Tasks are organized by f
 ---
 
 #### Task 8: Responsive Design
+
 **Goal**: Work perfectly on mobile, tablet, and desktop
 
 **Subtasks:**
+
 - [ ] Test on mobile devices (iOS, Android)
 - [ ] Fix layout issues at breakpoints
   - Mobile: < 640px
@@ -225,6 +248,7 @@ This is a tactical task list for near-term development. Tasks are organized by f
 - [ ] Test landscape orientation
 
 **Acceptance Criteria:**
+
 - All features work on mobile
 - No horizontal scrolling
 - Touch targets are large enough
@@ -233,9 +257,11 @@ This is a tactical task list for near-term development. Tasks are organized by f
 ---
 
 #### Task 9: Dark Mode
+
 **Goal**: Support dark theme preference
 
 **Subtasks:**
+
 - [ ] Add theme context provider
 - [ ] Create theme toggle component
 - [ ] Store theme preference in localStorage
@@ -246,6 +272,7 @@ This is a tactical task list for near-term development. Tasks are organized by f
 - [ ] Update charts for dark mode
 
 **Acceptance Criteria:**
+
 - Theme persists across sessions
 - All text is readable in both themes
 - Charts adapt to theme
@@ -258,9 +285,11 @@ This is a tactical task list for near-term development. Tasks are organized by f
 ### Enhanced Analysis
 
 #### Task 10: DCF Valuation Model
+
 **Goal**: Calculate intrinsic value using discounted cash flow
 
 **Subtasks:**
+
 - [ ] Create `lib/analysis/dcf.ts`
 - [ ] Implement free cash flow calculation
 - [ ] Calculate WACC (Weighted Average Cost of Capital)
@@ -273,6 +302,7 @@ This is a tactical task list for near-term development. Tasks are organized by f
 - [ ] Test with known companies
 
 **Acceptance Criteria:**
+
 - DCF calculation matches manual calculations
 - All inputs clearly documented
 - Assumptions are transparent
@@ -281,9 +311,11 @@ This is a tactical task list for near-term development. Tasks are organized by f
 ---
 
 #### Task 11: Peer Comparison
+
 **Goal**: Compare company against competitors
 
 **Subtasks:**
+
 - [ ] Create peer identification logic
   - Same sector
   - Similar market cap
@@ -296,6 +328,7 @@ This is a tactical task list for near-term development. Tasks are organized by f
 - [ ] Add export functionality
 
 **Acceptance Criteria:**
+
 - Relevant peers identified automatically
 - Side-by-side comparison is clear
 - Can export comparison data
@@ -306,9 +339,11 @@ This is a tactical task list for near-term development. Tasks are organized by f
 ### Database & Performance
 
 #### Task 12: Database Optimization
+
 **Goal**: Improve query performance and add migrations
 
 **Subtasks:**
+
 - [ ] Install migration tool
   ```bash
   npm install better-sqlite3-migration
@@ -326,6 +361,7 @@ This is a tactical task list for near-term development. Tasks are organized by f
 - [ ] Add connection pooling
 
 **Acceptance Criteria:**
+
 - Queries run in < 100ms
 - Migrations run successfully
 - Can handle 10,000+ evaluations
@@ -334,9 +370,11 @@ This is a tactical task list for near-term development. Tasks are organized by f
 ---
 
 #### Task 13: Caching Layer
+
 **Goal**: Reduce API calls and improve response time
 
 **Subtasks:**
+
 - [ ] Install Redis or use in-memory cache
   ```bash
   npm install ioredis
@@ -352,6 +390,7 @@ This is a tactical task list for near-term development. Tasks are organized by f
 - [ ] Test cache behavior
 
 **Acceptance Criteria:**
+
 - API calls reduced by 50%+
 - Response times improve
 - Cache invalidation works correctly
@@ -362,9 +401,11 @@ This is a tactical task list for near-term development. Tasks are organized by f
 ### User Features
 
 #### Task 14: Search & Autocomplete
+
 **Goal**: Easy company lookup with suggestions
 
 **Subtasks:**
+
 - [ ] Create company search API endpoint
 - [ ] Implement fuzzy search
 - [ ] Add ticker symbol search
@@ -375,6 +416,7 @@ This is a tactical task list for near-term development. Tasks are organized by f
 - [ ] Test with various inputs
 
 **Acceptance Criteria:**
+
 - Autocomplete appears within 100ms
 - Shows relevant results
 - Handles typos gracefully
@@ -383,9 +425,11 @@ This is a tactical task list for near-term development. Tasks are organized by f
 ---
 
 #### Task 15: Export to PDF
+
 **Goal**: Generate professional PDF reports
 
 **Subtasks:**
+
 - [ ] Install PDF library
   ```bash
   npm install @react-pdf/renderer
@@ -401,6 +445,7 @@ This is a tactical task list for near-term development. Tasks are organized by f
 - [ ] Test PDF generation
 
 **Acceptance Criteria:**
+
 - PDF looks professional
 - All data included
 - Charts render correctly
@@ -411,9 +456,11 @@ This is a tactical task list for near-term development. Tasks are organized by f
 ## 🟡 Medium Priority - Nice to Have
 
 #### Task 16: Historical Tracking
+
 **Goal**: Track how ratings change over time
 
 **Subtasks:**
+
 - [ ] Add evaluation history view
 - [ ] Create timeline visualization
 - [ ] Show rating changes
@@ -424,9 +471,11 @@ This is a tactical task list for near-term development. Tasks are organized by f
 ---
 
 #### Task 17: Watchlist
+
 **Goal**: Track favorite companies
 
 **Subtasks:**
+
 - [ ] Add watchlist table to database
 - [ ] Create watchlist UI
 - [ ] Add/remove from watchlist
@@ -437,9 +486,11 @@ This is a tactical task list for near-term development. Tasks are organized by f
 ---
 
 #### Task 18: News Integration
+
 **Goal**: Show recent news for analyzed companies
 
 **Subtasks:**
+
 - [ ] Integrate news API (NewsAPI, Google News)
 - [ ] Fetch recent articles
 - [ ] Display in UI
@@ -452,9 +503,11 @@ This is a tactical task list for near-term development. Tasks are organized by f
 ## 🟢 Low Priority - Future Enhancements
 
 #### Task 19: User Authentication
+
 **Goal**: Multi-user support with accounts
 
 **Subtasks:**
+
 - [ ] Install NextAuth.js
 - [ ] Add login page
 - [ ] Implement email auth
@@ -466,9 +519,11 @@ This is a tactical task list for near-term development. Tasks are organized by f
 ---
 
 #### Task 20: AI Assistant Chat
+
 **Goal**: Conversational interface for questions
 
 **Subtasks:**
+
 - [ ] Create chat UI
 - [ ] Implement streaming responses
 - [ ] Add context from analysis
@@ -483,19 +538,23 @@ When adding new tasks, use this template:
 
 ```markdown
 #### Task X: [Task Name]
+
 **Goal**: [What we're trying to achieve]
 
 **Subtasks:**
+
 - [ ] Subtask 1
 - [ ] Subtask 2
 - [ ] Subtask 3
 
 **Acceptance Criteria:**
+
 - Criterion 1
 - Criterion 2
 - Criterion 3
 
 **Dependencies:**
+
 - Must complete Task Y first
 
 **Estimated Time:** X hours/days
@@ -518,7 +577,9 @@ When adding new tasks, use this template:
 ## Progress Tracking
 
 ### Sprint 1 (Current)
+
 **Focus**: Foundation & Stability
+
 - [ ] Task 1: Error Handling System
 - [ ] Task 2: Input Validation
 - [ ] Task 3: Loading States & UX
@@ -526,7 +587,9 @@ When adding new tasks, use this template:
 **Target Date**: [Add date]
 
 ### Sprint 2
+
 **Focus**: Data Integration
+
 - [ ] Task 4: Financial Data API Integration
 - [ ] Task 5: Enhanced Claude Analysis
 - [ ] Task 6: Financial Ratios Calculator
@@ -534,7 +597,9 @@ When adding new tasks, use this template:
 **Target Date**: [Add date]
 
 ### Sprint 3
+
 **Focus**: UI/UX
+
 - [ ] Task 7: Data Visualization
 - [ ] Task 8: Responsive Design
 - [ ] Task 9: Dark Mode
@@ -546,6 +611,7 @@ When adding new tasks, use this template:
 ## Resources & References
 
 ### APIs to Investigate
+
 - **Alpha Vantage**: https://www.alphavantage.co/
 - **Yahoo Finance**: https://www.npmjs.com/package/yahoo-finance2
 - **IEX Cloud**: https://iexcloud.io/
@@ -553,6 +619,7 @@ When adding new tasks, use this template:
 - **NewsAPI**: https://newsapi.org/
 
 ### Libraries to Consider
+
 - **Charts**: recharts, chart.js, d3
 - **PDF**: @react-pdf/renderer, puppeteer
 - **Validation**: zod, yup
@@ -560,6 +627,7 @@ When adding new tasks, use this template:
 - **Caching**: ioredis, node-cache
 
 ### Learning Resources
+
 - Financial analysis fundamentals
 - DCF valuation tutorials
 - Technical analysis indicators
@@ -570,12 +638,15 @@ When adding new tasks, use this template:
 ## Notes & Decisions
 
 ### Decision Log
+
 - **2024-XX-XX**: Chose Alpha Vantage as primary data provider
 - **2024-XX-XX**: Using Recharts for visualization
 - **2024-XX-XX**: Implementing in-memory cache first, Redis later
 
 ### Blockers
+
 - [List any blockers here]
 
 ### Questions
+
 - [Add questions that need answers]
