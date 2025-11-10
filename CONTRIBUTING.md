@@ -32,7 +32,7 @@ Be respectful, inclusive, and constructive. We're all here to build something gr
 
 #### Prerequisites
 
-- Node.js 18 or higher
+- Node.js 20.9.0 or higher (required by Next.js 16)
 - npm 9 or higher
 - Git
 - Anthropic API key for testing
