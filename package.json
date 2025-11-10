@@ -12,7 +12,8 @@
     "type-check": "tsc --noEmit",
     "db:init": "node scripts/init-db.js",
     "db:migrate": "node scripts/migrate.js",
-    "clean": "rm -rf .next"
+    "clean": "rm -rf .next",
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",
@@ -54,6 +55,17 @@
   },
   "devDependencies": {
     "eslint-config-prettier": "^10.1.8",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.6",
     "prettier": "^3.6.2"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{json,css,md}": [
+      "prettier --write"
+    ]
   }
 }
